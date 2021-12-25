@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'io.github.bloodnighttw'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation("net.dv8tion:JDA:5.0.0-alpha.2")
+    implementation("ch.qos.logback:logback-classic:1.2.8")
+
+}
+
+test {
+    useJUnitPlatform()
+}
