@@ -6,13 +6,13 @@ import org.jetbrains.annotations.NotNull;
 
 public interface ICommand {
 
-  default String[] getAlias() {
-    return new String[] {};
-  }
+	default String[] getAlias() {
+		return new String[]{};
+	}
 
-  CommandData getCommand();
+	CommandData getCommand();
 
-  void commandHandler(@NotNull SlashCommandEvent event);
+	void commandHandler(@NotNull SlashCommandEvent event);
 
-  boolean isGlobal();
+	boolean isGlobal();
 }

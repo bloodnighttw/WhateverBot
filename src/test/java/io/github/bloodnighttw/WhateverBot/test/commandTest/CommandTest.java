@@ -12,29 +12,29 @@ import java.util.concurrent.TimeUnit;
 
 public class CommandTest {
 
-  private static CommandRegister commandRegister;
+	private static CommandRegister commandRegister;
 
-  public static void main(String[] args) throws InterruptedException, LoginException {
-    for (String it : args) {
-      switch (it) {
-        case "-d":
-        case "-debug":
-          Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
-          root.setLevel(Level.DEBUG);
-          System.out.println("Enable Debug Mode");
-          break;
-      }
-    }
+	public static void main(String[] args) throws InterruptedException, LoginException {
+		for (String it : args) {
+			switch (it) {
+				case "-d":
+				case "-debug":
+					Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+					root.setLevel(Level.DEBUG);
+					System.out.println("Enable Debug Mode");
+					break;
+			}
+		}
 
-    JDA bot = JDABuilder.createDefault(System.getenv("TOKEN")).build();
-    commandRegister = new CommandRegister(bot);
-    load();
-  }
+		JDA bot = JDABuilder.createDefault(System.getenv("TOKEN")).build();
+		commandRegister = new CommandRegister(bot);
+		load();
+	}
 
-  static void load() throws InterruptedException {
-    TimeUnit.SECONDS.sleep(5);
-    commandRegister.registerCommand(new HelloCommandLocal());
-    commandRegister.registerCommand(new HelloCommandGlobal());
-    commandRegister.addToAllServer();
-  }
+	static void load() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(5);
+		commandRegister.registerCommand(new HelloCommandLocal());
+		commandRegister.registerCommand(new HelloCommandGlobal());
+		commandRegister.addToAllServer();
+	}
 }
