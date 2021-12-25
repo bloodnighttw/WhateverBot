@@ -12,18 +12,25 @@ public class CommandRegister {
 
   private JDA bot;
   private final Logger logger = LoggerFactory.getLogger(CommandRegister.class);
-  private ArrayList<CommandData> commandDataList;
+  private ArrayList<CommandData> commandDataLocalList;
+  private ArrayList<CommandData> commandDataGlobalList;
 
   public CommandRegister(JDA bot) {
     this.bot = bot;
-    commandDataList = new ArrayList<>();
+    commandDataLocalList = new ArrayList<>();
+    commandDataGlobalList = new ArrayList<>();
   }
 
   public void registerCommand(ICommand iCommand) {
-    if (iCommand.isGlobal()) {
-      commandDataList.add(iCommand.getCommand());
+    if (!iCommand.isGlobal()) {
+      commandDataLocalList.add(iCommand.getCommand());
       for (String alias : iCommand.getAlias()) {
-        commandDataList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
+        commandDataLocalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
+      }
+    } else {
+      commandDataGlobalList.add(iCommand.getCommand());
+      for (String alias : iCommand.getAlias()) {
+        commandDataGlobalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
       }
     }
 
@@ -33,9 +40,16 @@ public class CommandRegister {
   }
 
   public void addToAllServer() {
+
+    bot.updateCommands().addCommands(commandDataGlobalList).queue();
+
     for (Guild guild : bot.getGuilds()) {
       logger.debug("Add command to server: " + guild.getName());
-      guild.updateCommands().addCommands(commandDataList).queue();
+      guild
+          .updateCommands()
+          .addCommands(commandDataLocalList)
+          .addCommands(commandDataGlobalList)
+          .queue();
     }
   }
 }

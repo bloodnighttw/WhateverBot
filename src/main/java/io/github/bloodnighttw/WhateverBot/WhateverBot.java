@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
+public class WhateverBot {
 
-  public static void main(String[] args) throws LoginException {
+  private static CommandRegister commandRegister;
+
+  public static void main(String[] args) throws LoginException, InterruptedException {
 
         for(String it:args){
             switch (it){
@@ -26,17 +28,12 @@ public class Main {
         }
 
         JDA bot = JDABuilder.createDefault(System.getenv("TOKEN")).build();
-
-
-
+    commandRegister = new CommandRegister(bot);
+    load();
     }
 
-  static void load(JDA bot) throws InterruptedException {
+  static void load() throws InterruptedException {
     TimeUnit.SECONDS.sleep(5);
-    CommandRegister commandRegister = new CommandRegister(bot);
-
-    // register ICommand down below.......
-
     commandRegister.addToAllServer();
   }
 }

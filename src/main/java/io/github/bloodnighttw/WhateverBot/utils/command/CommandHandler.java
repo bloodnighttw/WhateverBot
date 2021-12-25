@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 public class CommandHandler implements EventListener {
 
-  private Logger logger = LoggerFactory.getLogger(CommandHandler.class);
-  private ICommand iCommand;
+  private final Logger logger = LoggerFactory.getLogger(CommandHandler.class);
+  private final ICommand iCommand;
 
   public CommandHandler(ICommand iCommand) {
     this.iCommand = iCommand;
@@ -21,9 +21,9 @@ public class CommandHandler implements EventListener {
     if (event instanceof SlashCommandEvent) {
 
       SlashCommandEvent slashCommandEvent = (SlashCommandEvent) event;
-      slashCommandEvent.deferReply().queue();
 
       if (slashCommandEvent.getName().equals(iCommand.getCommand().getName())) {
+        slashCommandEvent.deferReply().queue();
         iCommand.commandHandler(slashCommandEvent);
       }
 
