@@ -1,18 +1,18 @@
-package io.github.bloodnighttw;
+package io.github.bloodnighttw.WhateverBot;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import io.github.bloodnighttw.WhateverBot.utils.command.CommandRegister;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.LoggerFactory;
 
-
 import javax.security.auth.login.LoginException;
+import java.util.concurrent.TimeUnit;
 
-public class WhateverBot {
+public class Main {
 
-
-    public static void main(String[] args) throws LoginException {
+  public static void main(String[] args) throws LoginException {
 
         for(String it:args){
             switch (it){
@@ -26,8 +26,17 @@ public class WhateverBot {
         }
 
         JDA bot = JDABuilder.createDefault(System.getenv("TOKEN")).build();
-        bot.addEventListener(new PingTest());
+
+
 
     }
 
+  static void load(JDA bot) throws InterruptedException {
+    TimeUnit.SECONDS.sleep(5);
+    CommandRegister commandRegister = new CommandRegister(bot);
+
+    // register ICommand down below.......
+
+    commandRegister.addToAllServer();
+  }
 }
