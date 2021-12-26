@@ -22,7 +22,7 @@ dependencies {
 
 }
 
-task stage(dependsOn: ['build','shadowJar','clean'])
+task stage(dependsOn: ['build','clean','shadowJar'])
 build.mustRunAfter clean
 
 jar{
