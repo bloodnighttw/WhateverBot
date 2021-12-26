@@ -9,27 +9,26 @@ import org.slf4j.LoggerFactory;
 
 public class HelloCommandLocal implements ICommand {
 
-  private final Logger logger = LoggerFactory.getLogger(HelloCommandLocal.class);
+	private final Logger logger = LoggerFactory.getLogger(HelloCommandLocal.class);
 
-  @Override
-  public String[] getAlias() {
-    return new String[] {"hello", "h"};
-  }
+	@Override
+	public String[] getAlias() {
+		return new String[]{"hello", "h"};
+	}
 
-  @Override
-  public CommandData getCommand() {
-    return new CommandData("hi", "command make bot say hi");
-  }
+	@Override
+	public CommandData getCommand() {
+		return new CommandData("hi", "command make bot say hi");
+	}
 
-  @Override
-  public void commandHandler(@NotNull SlashCommandEvent event) {
+	@Override
+	public void commandHandler(@NotNull SlashCommandEvent event) {
+		event.getHook().sendMessage("hello here").queue();
+		logger.info("hello from console");
+	}
 
-    event.getHook().sendMessage("hello here").queue();
-    logger.info("hello from console");
-  }
-
-  @Override
-  public boolean isGlobal() {
-    return false;
-  }
+	@Override
+	public boolean isGlobal() {
+		return false;
+	}
 }

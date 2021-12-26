@@ -2,6 +2,7 @@ package io.github.bloodnighttw.WhateverBot;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import io.github.bloodnighttw.WhateverBot.VoiceChannelAutoCraft.VCAutoCraftEventHandler;
 import io.github.bloodnighttw.WhateverBot.utils.command.CommandRegister;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -42,5 +43,8 @@ public class WhateverBot {
 	static void loadEvent(JDA bot) {
 		if (System.getenv("CHANNEL_ID") != null)
 			bot.addEventListener(new io.github.bloodnighttw.WhateverBot.CodeAutoResend.MessageHandler());
+		if (System.getenv("VC_ID") != null)
+			bot.addEventListener(new VCAutoCraftEventHandler());
+
 	}
 }
