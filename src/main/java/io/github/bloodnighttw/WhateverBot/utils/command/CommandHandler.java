@@ -11,6 +11,7 @@ public class CommandHandler implements EventListener {
 
 	private final Logger logger = LoggerFactory.getLogger(CommandHandler.class);
 	private final ICommand iCommand;
+	private boolean ephemeral = false;
 
 	public CommandHandler(ICommand iCommand) {
 		this.iCommand = iCommand;
@@ -23,7 +24,7 @@ public class CommandHandler implements EventListener {
 			SlashCommandEvent slashCommandEvent = (SlashCommandEvent) event;
 
 			if (slashCommandEvent.getName().equals(iCommand.getCommand().getName())) {
-				slashCommandEvent.deferReply().queue();
+				slashCommandEvent.deferReply().setEphemeral(ephemeral).queue();
 				iCommand.commandHandler(slashCommandEvent);
 			}
 
