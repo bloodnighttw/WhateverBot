@@ -17,6 +17,11 @@ public class CommandHandler implements EventListener {
 		this.iCommand = iCommand;
 	}
 
+	public CommandHandler(ICommand iCommand, boolean ephemeral) {
+		this.iCommand = iCommand;
+		this.ephemeral = ephemeral;
+	}
+
 	@Override
 	public void onEvent(@NotNull GenericEvent event) {
 		if (event instanceof SlashCommandEvent) {

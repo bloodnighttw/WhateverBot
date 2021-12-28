@@ -10,15 +10,20 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class VCAutoCraftEventHandler implements EventListener {
 
 	private final Logger logger = LoggerFactory.getLogger(VCAutoCraftEventHandler.class);
-	private final HashSet<AudioChannel> vcBotCreated;
+
+	public HashMap<AudioChannel, String> getVcOwner() {
+		return vcOwner;
+	}
+
+	private final HashMap<AudioChannel, String> vcOwner;
 
 	public VCAutoCraftEventHandler() {
-		vcBotCreated = new HashSet<>();
+		vcOwner = new HashMap<>();
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class VCAutoCraftEventHandler implements EventListener {
 							it.createVoiceChannel(" + " + event.getMember().getUser().getName() + " + ").queue(
 									voiceChannel -> {
 										voiceChannel.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
-										vcBotCreated.add(voiceChannel);
+										vcOwner.put(voiceChannel, event.getMember().getUser().getId());
 										logger.debug("create channel for user" + event.getMember().getUser().getName() + " in " + voiceChannel.getId());
 									});
 
@@ -63,8 +68,9 @@ public class VCAutoCraftEventHandler implements EventListener {
 
 		if (event.getChannelLeft() != null) {
 
-			if (vcBotCreated.contains(event.getChannelLeft())) {
+			if (vcOwner.containsKey(event.getChannelLeft())) {
 				if (event.getChannelLeft().getMembers().size() == 0) {
+					vcOwner.remove(event.getChannelLeft());
 					event.getChannelLeft().delete().queue();
 				}
 			}

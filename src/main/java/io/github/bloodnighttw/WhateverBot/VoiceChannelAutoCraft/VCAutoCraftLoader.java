@@ -6,8 +6,9 @@ import net.dv8tion.jda.api.JDA;
 public class VCAutoCraftLoader {
 
 	public static void load(JDA bot, CommandRegister register) {
-		bot.addEventListener(new VCAutoCraftEventHandler());
-		register.registerCommand(new PrivateCommand());
+		VCAutoCraftEventHandler eventHandler = new VCAutoCraftEventHandler();
+		bot.addEventListener(eventHandler);
+		register.registerPrivateCommand(new PrivateCommand(eventHandler.getVcOwner()));
 	}
 
 }

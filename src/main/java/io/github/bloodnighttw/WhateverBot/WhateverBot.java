@@ -32,10 +32,10 @@ public class WhateverBot {
 		JDA bot = JDABuilder.createDefault(System.getenv("TOKEN")).build();
 		commandRegister = new CommandRegister(bot);
 
-		load(bot);
 
 		bot.addEventListener((EventListener) event -> {
 			if (event instanceof ReadyEvent) {
+				load(bot);
 				commandRegister.addToAllServer();
 			}
 		});
