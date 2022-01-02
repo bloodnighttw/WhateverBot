@@ -16,8 +16,12 @@ don't set this value,this function won't enable.).
 
 - [x] Auto format code and resend when detecting the programing language.
 - [x] Auto Create Voice Channel.
+- [ ] Database (Plan to use Kotlin & Exposed franework).
 - [ ] Discord Music Player.
-- [ ] Osu-related function , such as last play , skin preview ,beatmap info , osr to mp4 (use danser-go as backend) ,
-  etc.
+- [ ] Osu-related function , such as last play , skin preview ,beatmap info , osr to mp4 (use danser-go as backend) , etc.
+
+### Consider Todo
+
+- [ ] Web Control Panel (Use Ktor as backend)
 
 
