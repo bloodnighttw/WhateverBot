@@ -16,7 +16,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
     implementation("net.dv8tion:JDA:5.0.0-alpha.2")
-    implementation("ch.qos.logback:logback-classic:1.2.8")
+    implementation("ch.qos.logback:logback-classic:1.2.10")
     implementation("org.xerial:sqlite-jdbc:3.36.0.3")
     implementation("club.minnced:discord-webhooks:0.7.4")
 
