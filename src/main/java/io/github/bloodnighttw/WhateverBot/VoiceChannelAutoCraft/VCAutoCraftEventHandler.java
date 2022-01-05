@@ -1,5 +1,6 @@
 package io.github.bloodnighttw.WhateverBot.VoiceChannelAutoCraft;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.VoiceChannel;
@@ -47,13 +48,21 @@ public class VCAutoCraftEventHandler implements EventListener {
 
 						if (voiceChannelIterator.getId().equals(System.getenv("VC_ID"))) {
 
-							logger.debug(voiceChannelIterator.getId() + "  " + System.getenv("VC_ID") + "  " + voiceChannelIterator.getId().equals(System.getenv("VC_ID")));
+							logger.debug(voiceChannelIterator.getId() + "  " + System.getenv("VC_ID") +
+									"  " + voiceChannelIterator.getId().equals(System.getenv("VC_ID")));
 
 							it.createVoiceChannel(" + " + event.getMember().getUser().getName() + " + ").queue(
 									voiceChannel -> {
 										voiceChannel.getGuild().moveVoiceMember(event.getMember(), voiceChannel).queue();
 										vcOwner.put(voiceChannel, event.getMember().getUser().getId());
-										logger.debug("create channel for user" + event.getMember().getUser().getName() + " in " + voiceChannel.getId());
+
+										logger.debug("create channel for user" +
+												event.getMember().getUser().getName() + " in " + voiceChannel.getId());
+
+										voiceChannel.getManager().getChannel()
+												.createPermissionOverride(event.getMember())
+												.setAllow(Permission.VOICE_MOVE_OTHERS)
+												.queue();
 									});
 
 							break L1;
