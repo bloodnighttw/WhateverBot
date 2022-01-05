@@ -1,4 +1,4 @@
-package io.github.bloodnighttw.WhateverBot.VoiceChannelAutoCraft;
+package io.github.bloodnighttw.WhateverBot.VCCreator;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.AudioChannel;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
-public class VCAutoCraftEventHandler implements EventListener {
+public class VCCreatorEventHandler implements EventListener {
 
-	private final Logger logger = LoggerFactory.getLogger(VCAutoCraftEventHandler.class);
+	private final Logger logger = LoggerFactory.getLogger(VCCreatorEventHandler.class);
 
 	public HashMap<AudioChannel, String> getVcOwner() {
 		return vcOwner;
@@ -23,7 +23,7 @@ public class VCAutoCraftEventHandler implements EventListener {
 
 	private final HashMap<AudioChannel, String> vcOwner;
 
-	public VCAutoCraftEventHandler() {
+	public VCCreatorEventHandler() {
 		vcOwner = new HashMap<>();
 	}
 

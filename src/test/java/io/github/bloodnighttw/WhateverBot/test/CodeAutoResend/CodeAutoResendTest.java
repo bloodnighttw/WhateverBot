@@ -2,7 +2,7 @@ package io.github.bloodnighttw.WhateverBot.test.CodeAutoResend;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import io.github.bloodnighttw.WhateverBot.CodeAutoResend.MessageHandler;
+import io.github.bloodnighttw.WhateverBot.codeWrapper.MessageHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.LoggerFactory;

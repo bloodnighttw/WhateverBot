@@ -1,4 +1,4 @@
-package io.github.bloodnighttw.WhateverBot.CodeAutoResend;
+package io.github.bloodnighttw.WhateverBot.codeWrapper;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
