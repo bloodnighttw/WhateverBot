@@ -1,40 +1,18 @@
-package io.github.bloodnighttw.whateverBot.codeWrapper;
+package io.github.bloodnighttw.whateverBot.codeWrapper
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.github.bloodnighttw.whateverBot.codeWrapper.Language.Other
+import net.dv8tion.jda.api.events.GenericEvent
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.hooks.EventListener
 
+class MessageHandler : EventListener {
+    override fun onEvent(event: GenericEvent) {
+        if (event is MessageReceivedEvent) {
+            val lang = detectCode(event.message.contentRaw)
 
-public class MessageHandler extends ListenerAdapter {
+            if (event.author.isBot || event.message.contentRaw.contains("```") || lang == Other) return
 
-	private final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
-
-	@Override
-	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-		if (event.getAuthor().isBot())
-			return;
-
-		if (event.getChannel().getId().equals(System.getenv("CHANNEL_ID"))) {
-			if (event.getMessage().getContentRaw().contains("```"))
-				return;
-
-			Language lang = LanguageDetector.detectCode(event.getMessage().getContentRaw());
-
-			switch (lang) {
-				case Java:
-					event.getChannel().sendMessage("```java\n" + event.getMessage().getContentRaw() + "\n```").queue();
-					break;
-				case C:
-					event.getChannel().sendMessage("```c\n" + event.getMessage().getContentRaw() + "\n```").queue();
-					break;
-				case CPP:
-					event.getChannel().sendMessage("```c++\n" + event.getMessage().getContentRaw() + "\n```").queue();
-					break;
-			}
-
-		}
-
-	}
+            event.channel.sendMessage("```" + lang + "\n" + event.message.contentRaw + "```").queue()
+        }
+    }
 }

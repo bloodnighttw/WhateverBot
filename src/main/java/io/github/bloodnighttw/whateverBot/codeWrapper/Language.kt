@@ -1,9 +1,5 @@
-package io.github.bloodnighttw.whateverBot.codeWrapper;
+package io.github.bloodnighttw.whateverBot.codeWrapper
 
-public enum Language {
-	CPP,
-	C,
-	Java,
-	Python,
-	Other
+enum class Language {
+    CPP, C, Java, Python, Other
 }
