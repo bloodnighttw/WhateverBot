@@ -29,7 +29,7 @@ build.mustRunAfter clean
 
 jar{
     manifest{
-        attributes 'Class-Path':'/bin/server.jar' , 'Main-Class':'io.github.bloodnighttw.WhateverBot.WhateverBotKt'
+        attributes 'Class-Path':'/bin/server.jar' , 'Main-Class':'io.github.bloodnighttw.whateverBot.WhateverBot'
     }
 }
 
