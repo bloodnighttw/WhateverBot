@@ -1,3 +1,5 @@
+@file:JvmName(name = "WhateverBot")
+
 package io.github.bloodnighttw.whateverBot
 
 import ch.qos.logback.classic.Level
