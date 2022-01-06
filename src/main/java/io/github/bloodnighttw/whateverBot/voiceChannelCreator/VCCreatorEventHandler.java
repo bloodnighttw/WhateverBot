@@ -1,4 +1,4 @@
-package io.github.bloodnighttw.whateverBot.VCCreator;
+package io.github.bloodnighttw.whateverBot.voiceChannelCreator;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.AudioChannel;
