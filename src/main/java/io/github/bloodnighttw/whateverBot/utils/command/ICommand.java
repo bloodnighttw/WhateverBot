@@ -1,4 +1,4 @@
-package io.github.bloodnighttw.WhateverBot.utils.command;
+package io.github.bloodnighttw.whateverBot.utils.command;
 
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -14,5 +14,7 @@ public interface ICommand {
 
 	void commandHandler(@NotNull SlashCommandEvent event);
 
-	boolean isGlobal();
+	default boolean isGlobal() {
+		return true;
+	}
 }

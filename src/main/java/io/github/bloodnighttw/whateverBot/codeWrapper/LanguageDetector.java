@@ -1,4 +1,4 @@
-package io.github.bloodnighttw.WhateverBot.codeWrapper;
+package io.github.bloodnighttw.whateverBot.codeWrapper;
 
 import java.util.Arrays;
 

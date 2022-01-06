@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
 }
 
 group 'io.github.bloodnighttw'
@@ -28,7 +29,7 @@ build.mustRunAfter clean
 
 jar{
     manifest{
-        attributes 'Class-Path':'/bin/server.jar' , 'Main-Class':'io.github.bloodnighttw.WhateverBot.WhateverBot'
+        attributes 'Class-Path':'/bin/server.jar' , 'Main-Class':'io.github.bloodnighttw.whateverBot.WhateverBot'
     }
 }
 
