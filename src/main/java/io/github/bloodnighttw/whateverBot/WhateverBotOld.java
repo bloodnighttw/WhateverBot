@@ -1,9 +1,9 @@
-package io.github.bloodnighttw.WhateverBot;
+package io.github.bloodnighttw.whateverBot;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import io.github.bloodnighttw.WhateverBot.VCCreator.VCCreatorLoader;
-import io.github.bloodnighttw.WhateverBot.utils.command.CommandRegister;
+import io.github.bloodnighttw.whateverBot.VCCreator.VCCreatorLoader;
+import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 
-public class WhateverBot {
+public class WhateverBotOld {
 
 	private static CommandRegister commandRegister;
 
@@ -40,12 +40,11 @@ public class WhateverBot {
 			}
 		});
 
-
 	}
 
 	static void load(JDA bot) {
 		if (System.getenv("CHANNEL_ID") != null)
-			bot.addEventListener(new io.github.bloodnighttw.WhateverBot.codeWrapper.MessageHandler());
+			bot.addEventListener(new io.github.bloodnighttw.whateverBot.codeWrapper.MessageHandler());
 		if (System.getenv("VC_ID") != null)
 			VCCreatorLoader.load(bot, commandRegister);
 

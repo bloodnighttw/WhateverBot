@@ -1,4 +1,4 @@
-package io.github.bloodnighttw.WhateverBot.utils.command;
+package io.github.bloodnighttw.whateverBot.utils.command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -22,7 +22,7 @@ public class CommandRegister {
 	}
 
 	public void registerCommand(ICommand iCommand) {
-		if (!iCommand.isGlobal()) {
+		if (iCommand.isGlobal()) {
 			commandDataLocalList.add(iCommand.getCommand());
 			for (String alias : iCommand.getAlias()) {
 				commandDataLocalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
@@ -39,7 +39,7 @@ public class CommandRegister {
 	}
 
 	public void registerPrivateCommand(ICommand iCommand) {
-		if (!iCommand.isGlobal()) {
+		if (iCommand.isGlobal()) {
 			commandDataLocalList.add(iCommand.getCommand());
 			for (String alias : iCommand.getAlias()) {
 				commandDataLocalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));

@@ -1,6 +1,6 @@
-package io.github.bloodnighttw.WhateverBot.VCCreator;
+package io.github.bloodnighttw.whateverBot.VCCreator;
 
-import io.github.bloodnighttw.WhateverBot.utils.command.CommandRegister;
+import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister;
 import net.dv8tion.jda.api.JDA;
 
 public class VCCreatorLoader {
