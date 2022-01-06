@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 
 class MessageHandler : EventListener {
 
-    val logger: Logger = LoggerFactory.getLogger(MessageHandler::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(MessageHandler::class.java)
 
     override fun onEvent(event: GenericEvent) {
         if (event is MessageReceivedEvent) {
