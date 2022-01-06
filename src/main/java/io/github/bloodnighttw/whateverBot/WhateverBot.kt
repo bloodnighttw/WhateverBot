@@ -3,9 +3,9 @@
 package io.github.bloodnighttw.whateverBot
 
 import ch.qos.logback.classic.Level
-import io.github.bloodnighttw.whateverBot.VCCreator.VCCreatorLoader
 import io.github.bloodnighttw.whateverBot.codeWrapper.MessageHandler
 import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister
+import io.github.bloodnighttw.whateverBot.voiceChannelCreator.voiceChannelCreatorLoad
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.events.GenericEvent
@@ -26,7 +26,7 @@ object Ready : EventListener {
 fun load(bot: JDA) {
     commandRegister = CommandRegister(bot)
     if (System.getenv("CHANNEL_ID") != null) bot.addEventListener(MessageHandler())
-    if (System.getenv("VC_ID") != null) VCCreatorLoader.load(bot, commandRegister)
+    if (System.getenv("VC_ID") != null) voiceChannelCreatorLoad(bot, commandRegister)
     commandRegister!!.addToAllServer()
 }
 

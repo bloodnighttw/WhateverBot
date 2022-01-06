@@ -1,71 +1,49 @@
-package io.github.bloodnighttw.whateverBot.utils.command;
+package io.github.bloodnighttw.whateverBot.utils.command
 
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import org.slf4j.LoggerFactory
 
-public class CommandRegister {
+class CommandRegister(private val bot: JDA) {
+    private val logger = LoggerFactory.getLogger(CommandRegister::class.java)
+    private val commandDataLocalList: ArrayList<CommandData> = ArrayList()
+    private val commandDataGlobalList: ArrayList<CommandData> = ArrayList()
 
-	private final JDA bot;
-	private final Logger logger = LoggerFactory.getLogger(CommandRegister.class);
-	private final ArrayList<CommandData> commandDataLocalList;
-	private final ArrayList<CommandData> commandDataGlobalList;
+    private fun register(iCommand: ICommand) {
+        if (iCommand.isGlobal) {
+            commandDataLocalList.add(iCommand.command)
+            for (alias in iCommand.alias) {
+                commandDataLocalList.add(CommandData(alias, iCommand.command.description))
+            }
+        } else {
+            commandDataGlobalList.add(iCommand.command)
+            for (alias in iCommand.alias) {
+                commandDataGlobalList.add(CommandData(alias, iCommand.command.description))
+            }
+        }
+    }
 
-	public CommandRegister(JDA bot) {
-		this.bot = bot;
-		commandDataLocalList = new ArrayList<>();
-		commandDataGlobalList = new ArrayList<>();
-	}
+    fun registerCommand(iCommand: ICommand) {
+        register(iCommand)
+        bot.addEventListener(CommandHandler(iCommand))
+    }
 
-	public void registerCommand(ICommand iCommand) {
-		if (iCommand.isGlobal()) {
-			commandDataLocalList.add(iCommand.getCommand());
-			for (String alias : iCommand.getAlias()) {
-				commandDataLocalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
-			}
-		} else {
-			commandDataGlobalList.add(iCommand.getCommand());
-			for (String alias : iCommand.getAlias()) {
-				commandDataGlobalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
-			}
-		}
+    fun registerPrivateCommand(iCommand: ICommand) {
+        register(iCommand)
+        bot.addEventListener(CommandHandler(iCommand, true))
+    }
 
-		bot.addEventListener(new CommandHandler(iCommand));
+    fun addToAllServer() {
+        bot.updateCommands().addCommands(commandDataGlobalList).queue()
+        for (guild in bot.guilds) {
+            logger.debug("Guild Found Name:" + guild.name)
+            logger.debug("Add command to server: " + guild.name)
+            guild.updateCommands()
+                    .addCommands(commandDataLocalList)
+                    .addCommands(commandDataGlobalList)
+                    .queue()
+        }
+    }
 
-	}
-
-	public void registerPrivateCommand(ICommand iCommand) {
-		if (iCommand.isGlobal()) {
-			commandDataLocalList.add(iCommand.getCommand());
-			for (String alias : iCommand.getAlias()) {
-				commandDataLocalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
-			}
-		} else {
-			commandDataGlobalList.add(iCommand.getCommand());
-			for (String alias : iCommand.getAlias()) {
-				commandDataGlobalList.add(new CommandData(alias, iCommand.getCommand().getDescription()));
-			}
-		}
-		bot.addEventListener(new CommandHandler(iCommand, true));
-	}
-
-	public void addToAllServer() {
-
-		bot.updateCommands().addCommands(commandDataGlobalList).queue();
-
-		for (Guild guild : bot.getGuilds()) {
-
-			logger.debug("Guild Found Name:" + guild.getName());
-
-			logger.debug("Add command to server: " + guild.getName());
-			guild.updateCommands()
-					.addCommands(commandDataLocalList)
-					.addCommands(commandDataGlobalList)
-					.queue();
-		}
-	}
 }
