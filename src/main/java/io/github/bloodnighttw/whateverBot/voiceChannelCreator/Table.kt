@@ -15,6 +15,16 @@ fun CreatorChannelTable.exist(channel: String, guild: String): Boolean = transac
     return@transaction !CreatorChannelTable.select { channelID.eq(channel) and guildID.eq(guild) }.empty()
 }
 
+object CreatorTable : Table() {
+    var channelID = varchar("channel_id", 50).default("0")
+    var guildID = varchar("guild_id", 50).default("0")
+}
+
+fun CreatorTable.exist(channel: String, guild: String): Boolean = transaction {
+    return@transaction !CreatorTable.select { channelID.eq(channel) and guildID.eq(guild) }.empty()
+}
+
+
 fun addInfoToCreatorChannelTable(channel: String, guild: String) {
 
     if (!CreatorChannelTable.exist(channel, guild)) {

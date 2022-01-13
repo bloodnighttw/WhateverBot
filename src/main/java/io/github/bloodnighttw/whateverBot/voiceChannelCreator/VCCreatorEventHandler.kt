@@ -2,16 +2,15 @@ package io.github.bloodnighttw.whateverBot.voiceChannelCreator
 
 import io.github.bloodnighttw.whateverBot.utils.extensions.category
 import net.dv8tion.jda.api.Permission
-import net.dv8tion.jda.api.entities.AudioChannel
 import net.dv8tion.jda.api.events.GenericEvent
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent
 import net.dv8tion.jda.api.hooks.EventListener
-import org.slf4j.LoggerFactory
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.transactions.transaction
 
 
 class VCCreatorEventHandler : EventListener {
-    private val logger = LoggerFactory.getLogger(VCCreatorEventHandler::class.java)
-    private val vcOwner: HashMap<AudioChannel?, String> = HashMap()
 
     override fun onEvent(event: GenericEvent) {
         if (event is GuildVoiceUpdateEvent) {
@@ -23,15 +22,33 @@ class VCCreatorEventHandler : EventListener {
 
         event.channelJoined?.let { vc ->
             if (CreatorChannelTable.exist(vc.id, event.guild.id)) {
-                vc.category()?.createVoiceChannel(event.member.nickname!!)?.queue {
-                    it.createPermissionOverride(event.member)
+                vc.category()?.createVoiceChannel(event.member.nickname ?: event.member.user.name)?.queue { newVC ->
+                    newVC.createPermissionOverride(event.member)
                             .setAllow(Permission.VOICE_MUTE_OTHERS, Permission.VOICE_MOVE_OTHERS)
                             .queue()
-                    event.guild.moveVoiceMember(event.member, it).queue()
+
+                    event.guild.moveVoiceMember(event.member, newVC).queue()
+
+                    transaction {
+                        CreatorTable.insert {
+                            it[guildID] = event.guild.id
+                            it[channelID] = newVC.id
+                        }
+                    }
+
                 }
             }
         }
 
+        event.channelLeft?.let { vc ->
+            if (CreatorTable.exist(vc.id, event.guild.id) && vc.members.isEmpty()) {
 
+                transaction {
+                    CreatorTable.deleteWhere { CreatorTable.channelID eq vc.id }
+                }
+
+                vc.delete().queue()
+            }
+        }
     }
 }

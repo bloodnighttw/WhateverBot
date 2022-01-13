@@ -4,6 +4,8 @@ import io.github.bloodnighttw.whateverBot.utils.command.ICommand
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.transactions.transaction
 
 object SetVC : ICommand {
     override val command: CommandData
@@ -29,12 +31,23 @@ object SetVC : ICommand {
     }
 }
 
-object DeleateVoiceChannel : ICommand {
+object DeleteALLVoiceChannel : ICommand {
     override val command: CommandData
-        get() = TODO("Not yet implemented")
+        get() = CommandData("removeallvc", "remove all voice channel")
 
     override fun commandHandler(event: SlashCommandEvent) {
-        TODO("Not yet implemented")
+
+        if (!event.member!!.hasPermission(Permission.ADMINISTRATOR)) {
+            event.hook.sendMessage("You are not admin of this server").queue()
+            return
+        }
+
+        transaction {
+            CreatorChannelTable.deleteWhere { CreatorChannelTable.guildID eq event.guild!!.id }
+        }
+
+        event.hook.sendMessage("Success deleate all voice channel!").queue()
+
     }
 
 }

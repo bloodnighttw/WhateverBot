@@ -8,9 +8,10 @@ import org.jetbrains.exposed.sql.transactions.transaction
 fun voiceChannelCreatorLoad(bot: JDA, register: CommandRegister?) {
     val eventHandler = VCCreatorEventHandler()
     bot.addEventListener(eventHandler)
-    register?.registerCommand(SetVC)
+    register?.registerPrivateCommand(SetVC)
+    register?.registerPrivateCommand(DeleteALLVoiceChannel)
     transaction {
-        SchemaUtils.create(CreatorChannelTable)
         SchemaUtils.createMissingTablesAndColumns(CreatorChannelTable)
+        SchemaUtils.createMissingTablesAndColumns(CreatorTable)
     }
 }
