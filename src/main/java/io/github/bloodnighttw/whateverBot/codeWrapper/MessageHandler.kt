@@ -9,18 +9,17 @@ import org.slf4j.LoggerFactory
 
 class MessageHandler : EventListener {
 
-    private val logger: Logger = LoggerFactory.getLogger(MessageHandler::class.java)
+	private val logger: Logger = LoggerFactory.getLogger(MessageHandler::class.java)
 
-    override fun onEvent(event: GenericEvent) {
-        if (event is MessageReceivedEvent) {
-            val lang = detectCode(event.message.contentRaw)
-            logger.debug(lang.toString())
+	override fun onEvent(event: GenericEvent) {
+		if (event is MessageReceivedEvent) {
+			val lang = detectCode(event.message.contentRaw)
 
+			if (event.author.isBot || event.message.contentRaw.contains("```") || lang == Other) return
+			logger.debug("Find $lang")
 
-            if (event.author.isBot || event.message.contentRaw.contains("```") || lang == Other) return
+			event.channel.sendMessage("```" + lang + "\n" + event.message.contentRaw + "```").queue()
 
-            event.channel.sendMessage("```" + lang + "\n" + event.message.contentRaw + "```").queue()
-
-        }
-    }
+		}
+	}
 }
