@@ -11,13 +11,13 @@ class TrackLoadResultHandler(private val channel: TextChannel, private val track
 
 	override fun trackLoaded(track: AudioTrack) {
 		channel.sendMessage("hi1").queue()
-		trackScheduler.queue(track)
+		trackScheduler.play(track)
 	}
 
 	override fun playlistLoaded(playlist: AudioPlaylist) {
 		channel.sendMessage("hi2").queue()
 		for (i in playlist.tracks) {
-			trackScheduler.queue(i)
+			trackScheduler.play(i)
 		}
 	}
 

@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import io.github.bloodnighttw.whateverBot.musicBot.eventHandler.TrackLoadResultHandler
 import io.github.bloodnighttw.whateverBot.musicBot.eventHandler.TrackScheduler
 import io.github.bloodnighttw.whateverBot.utils.extensions.loadSingle
@@ -45,7 +46,7 @@ class GuildMusicProvider(private val bot: JDA, guild: Guild, voiceChannel: Voice
 
 	fun search(str: String) {
 		musicManager.loadSingle(
-			"ytsearch:$str",
+			"ytsearch: $str",
 			TrackLoadResultHandler(bot.getTextChannelById("924200786924281866")!!, trackScheduler)
 		)
 	}
@@ -67,11 +68,23 @@ class GuildMusicProvider(private val bot: JDA, guild: Guild, voiceChannel: Voice
 	}
 
 	fun next() {
-		TODO("Next not yet implement")
+		trackScheduler.nextTrack()
 	}
 
-	fun enableLoop() {
-		TODO("Loop not yet implement")
+	fun stop() {
+		player.stopTrack()
 	}
+
+	fun toggleLoop() {
+		trackScheduler.loopQueue = !trackScheduler.loopQueue
+	}
+
+	val loop: Boolean
+		get() = trackScheduler.loopQueue
+
+	fun nowPlaying(): AudioTrack {
+		return player.playingTrack
+	}
+
 
 }
