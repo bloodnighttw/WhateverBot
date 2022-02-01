@@ -1,6 +1,5 @@
 # WhateverBot
-
-[![CodeQL](https://github.com/bloodnighttw/WhateverBot/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/bloodnighttw/WhateverBot/actions/workflows/codeql-analysis.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/bloodnighttw/whateverbot/badge)](https://www.codefactor.io/repository/github/bloodnighttw/whateverbot)
 
 A Discord Bot Write for my discord server,feel free to use.
 
