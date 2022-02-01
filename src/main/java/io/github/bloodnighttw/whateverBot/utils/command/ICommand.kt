@@ -7,7 +7,13 @@ interface ICommand {
 	val alias: Array<String>
 		get() = arrayOf()
 	val command: CommandData
-	fun commandHandler(event: SlashCommandEvent)
+	fun commandHandler(event: SlashCommandEvent) {
+		println(event.subcommandName)
+		subCommandMap[event.subcommandName]?.subCommandHandler(event)
+	}
+
 	val isGlobal: Boolean
 		get() = true
+	val subCommandMap: Map<String, ISubCommand>
+		get() = mapOf()
 }

@@ -11,17 +11,18 @@ class CommandRegister(private val bot: JDA) {
 	private val commandDataGlobalList: ArrayList<CommandData> = ArrayList()
 
 	private fun register(iCommand: ICommand) {
-		if (iCommand.isGlobal) {
-			commandDataLocalList.add(iCommand.command)
-			for (alias in iCommand.alias) {
-				commandDataLocalList.add(CommandData(alias, iCommand.command.description))
-			}
-		} else {
-			commandDataGlobalList.add(iCommand.command)
-			for (alias in iCommand.alias) {
-				commandDataGlobalList.add(CommandData(alias, iCommand.command.description))
-			}
+		var tempCommandData = iCommand.command
+		val tempDataList: ArrayList<CommandData> =
+			if (iCommand.isGlobal) commandDataGlobalList else commandDataLocalList
+
+		tempCommandData = tempCommandData.addSubcommands(iCommand.subCommandMap.values.map { it.subCommand })
+		tempDataList.add(tempCommandData)
+		for (alias in iCommand.alias) {
+			tempCommandData =
+				CommandData(alias, tempCommandData.description).addSubcommands(tempCommandData.subcommands)
+			tempDataList.add(tempCommandData)
 		}
+
 	}
 
 	fun registerCommand(iCommand: ICommand) {
