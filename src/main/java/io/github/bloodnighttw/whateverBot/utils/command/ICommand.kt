@@ -13,7 +13,7 @@ interface ICommand {
 	}
 
 	val isGlobal: Boolean
-		get() = true
+		get() = false
 	val subCommandMap: Map<String, ISubCommand>
 		get() = mapOf()
 }

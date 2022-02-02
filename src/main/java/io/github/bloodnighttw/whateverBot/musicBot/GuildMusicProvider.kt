@@ -86,5 +86,4 @@ class GuildMusicProvider(private val bot: JDA, guild: Guild, voiceChannel: Voice
 		return player.playingTrack
 	}
 
-
 }

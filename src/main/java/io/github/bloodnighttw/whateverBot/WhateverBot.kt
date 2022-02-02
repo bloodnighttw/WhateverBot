@@ -5,6 +5,7 @@ package io.github.bloodnighttw.whateverBot
 import ch.qos.logback.classic.Level
 import io.github.bloodnighttw.whateverBot.codeWrapper.MessageHandler
 import io.github.bloodnighttw.whateverBot.musicBot.loadMusicBotFunc
+import io.github.bloodnighttw.whateverBot.osu.loadOsuFunction
 import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister
 import io.github.bloodnighttw.whateverBot.voiceChannelCreator.voiceChannelCreatorLoad
 import net.dv8tion.jda.api.JDA
@@ -31,6 +32,7 @@ fun load(bot: JDA) {
 	bot.addEventListener(MessageHandler())
 	voiceChannelCreatorLoad(bot, commandRegister)
 	loadMusicBotFunc(bot, commandRegister)
+	loadOsuFunction(bot, commandRegister)
 	commandRegister!!.addToAllServer()
 }
 

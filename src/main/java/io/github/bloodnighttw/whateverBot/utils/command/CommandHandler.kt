@@ -25,7 +25,6 @@ class CommandHandler : EventListener {
 				event.deferReply().setEphemeral(ephemeral).queue()
 				iCommand.commandHandler(event)
 			}
-
 		}
 	}
 }

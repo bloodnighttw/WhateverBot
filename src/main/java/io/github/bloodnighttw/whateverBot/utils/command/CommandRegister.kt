@@ -15,11 +15,14 @@ class CommandRegister(private val bot: JDA) {
 		val tempDataList: ArrayList<CommandData> =
 			if (iCommand.isGlobal) commandDataGlobalList else commandDataLocalList
 
-		tempCommandData = tempCommandData.addSubcommands(iCommand.subCommandMap.values.map { it.subCommand })
+		val allSubCommand = iCommand.subCommandMap.values.map { it.subCommand }
+		tempCommandData = tempCommandData.addSubcommands(allSubCommand)
+
 		tempDataList.add(tempCommandData)
+
 		for (alias in iCommand.alias) {
 			tempCommandData =
-				CommandData(alias, tempCommandData.description).addSubcommands(tempCommandData.subcommands)
+				CommandData(alias, tempCommandData.description).addSubcommands(allSubCommand)
 			tempDataList.add(tempCommandData)
 		}
 
@@ -37,13 +40,15 @@ class CommandRegister(private val bot: JDA) {
 
 	fun addToAllServer() {
 		bot.updateCommands().addCommands(commandDataGlobalList).queue()
+		commandDataLocalList.forEach { logger.debug("Local Command " + it.name) }
+		commandDataGlobalList.forEach { logger.debug("Global Command " + it.name) }
 		for (guild in bot.guilds) {
 			logger.debug("Guild Found Name:" + guild.name)
 			logger.debug("Add command to server: " + guild.name)
 			guild.updateCommands()
-					.addCommands(commandDataLocalList)
-					.addCommands(commandDataGlobalList)
-					.queue()
+				.addCommands(commandDataLocalList)
+				.addCommands(commandDataGlobalList)
+				.queue()
 		}
 	}
 
