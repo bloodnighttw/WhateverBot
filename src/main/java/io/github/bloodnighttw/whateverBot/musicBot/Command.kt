@@ -31,7 +31,8 @@ object Pause : ICommand {
 		get() = CommandData("pause", "pause the music")
 
 	override fun commandHandler(event: SlashCommandEvent) {
-		event.member?.nowVoiceChannel()?.let { getMusicProviderByGuild(event.guild!!, it).pause() }
+
+		event.member?.nowVoiceChannel()?.let { getMusicProviderByGuild(event.guild!!, it).pause() } ?: run { print("hi") }
 		event.hook.sendMessage("Pause the song").queue()
 	}
 }

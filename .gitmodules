@@ -1,0 +1,3 @@
+[submodule "src/main/resources/arknights"]
+	path = src/main/resources/arknights
+	url = https://github.com/Kengxxiao/ArknightsGameData.git

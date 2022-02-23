@@ -10,6 +10,7 @@ object ClearAllCommand : EventListener {
 				i.updateCommands().queue()
 			}
 		}
+		event.jda.updateCommands().queue()
 	}
 
 }

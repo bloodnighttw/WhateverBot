@@ -3,6 +3,7 @@
 package io.github.bloodnighttw.whateverBot
 
 import ch.qos.logback.classic.Level
+import io.github.bloodnighttw.whateverBot.arknights.loadArknights
 import io.github.bloodnighttw.whateverBot.codeWrapper.MessageHandler
 import io.github.bloodnighttw.whateverBot.musicBot.loadMusicBotFunc
 import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister
@@ -31,6 +32,7 @@ fun load(bot: JDA) {
 	bot.addEventListener(MessageHandler())
 	voiceChannelCreatorLoad(bot, commandRegister)
 	loadMusicBotFunc(bot, commandRegister)
+	loadArknights(bot, commandRegister)
 	commandRegister!!.addToAllServer()
 }
 

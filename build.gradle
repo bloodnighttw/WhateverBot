@@ -36,7 +36,9 @@ dependencies {
 
     implementation('com.sedmelluq:lavaplayer:1.3.77')
 
-    implementation 'io.github.bloodnighttw:WhateverOsu:1.0'
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
+
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1'
 
 }
 
