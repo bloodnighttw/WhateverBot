@@ -40,7 +40,13 @@ dependencies {
 
 }
 
-task stage(dependsOn: ['build','shadowJar'])
+task submodulesUpdate(type:Exec) {
+    description 'Updates (and inits) git submodules'
+    commandLine 'git', 'submodule', 'update', '--init', '--recursive'
+    group 'Build Setup'
+}
+
+task stage(dependsOn: ['submodulesUpdate','build','shadowJar'])
 build.mustRunAfter clean
 
 jar{
