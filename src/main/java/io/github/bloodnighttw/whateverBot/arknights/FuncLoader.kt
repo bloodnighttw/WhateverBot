@@ -25,6 +25,8 @@ fun MutableMap<String,MutableSet<CharacterInfo>>.add(key:String,characterInfo:Ch
 }
 
 fun loadArknights(bot:JDA, register: CommandRegister?){
+	commandRegister?.registerCommand(Arknights)
+
 	loadCharacterMap()
 	loadRecruitCharacterMap()
 
@@ -41,7 +43,7 @@ fun loadArknights(bot:JDA, register: CommandRegister?){
 	}
 
 
-	commandRegister?.registerCommand(Arknights)
+
 }
 
 fun loadCharacterMap(){
