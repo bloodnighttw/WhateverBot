@@ -16,11 +16,13 @@ class CommandRegister(private val bot: JDA) {
 			if (iCommand.isGlobal) commandDataGlobalList else commandDataLocalList
 
 		tempCommandData = tempCommandData.addSubcommands(iCommand.subCommandMap.values.map { it.subCommand })
+		logger.debug("add ${if(tempDataList === commandDataGlobalList) "GLOBAL" else "LOCAL"} command for ${iCommand.command.name}")
 		tempDataList.add(tempCommandData)
 		for (alias in iCommand.alias) {
 			tempCommandData =
 				CommandData(alias, tempCommandData.description).addSubcommands(tempCommandData.subcommands)
 			tempDataList.add(tempCommandData)
+			logger.debug("add ${if(tempDataList === commandDataGlobalList) "GLOBAL" else "LOCAL"} command for ${iCommand.command.name}")
 		}
 
 	}
