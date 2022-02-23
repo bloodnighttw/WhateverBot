@@ -48,7 +48,7 @@ task submodulesUpdate(type:Exec) {
     group 'Build Setup'
 }
 
-task stage(dependsOn: ['submodulesUpdate','build','shadowJar'])
+task stage(dependsOn: ['build','shadowJar'])
 build.mustRunAfter clean
 
 jar{
