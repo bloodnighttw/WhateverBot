@@ -49,7 +49,7 @@ object Recruit:ISubCommand{
 
 		for( i in 0..4){
 			if(set[i] == null)
-				continue;
+				continue
 
 			set[i]?.let { characterInfoSet ->
 				slashCommandEvent.channel.sendMessage(
@@ -64,11 +64,11 @@ object Recruit:ISubCommand{
 
 		for( i in 0..4){
 			if(set[i] == null)
-				continue;
+				continue
 
 			for ( j in i+1..4){
 				if(set[j] == null)
-					continue;
+					continue
 
 				val result = set[i]!! intersect set[j]!!
 
@@ -89,11 +89,11 @@ object Recruit:ISubCommand{
 
 		for( i in 0..4){
 			if(set[i] == null)
-				continue;
+				continue
 
 			for ( j in i+1..4){
 				if(set[j] == null)
-					continue;
+					continue
 
 				for( k in j+1 ..4){
 					if(set[k] == null)
