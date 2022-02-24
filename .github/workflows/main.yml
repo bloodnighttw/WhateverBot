@@ -7,7 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Login to Heroku Container registry
-      env: 
+    - name: Heroku login credentials
+      run: |
+        cat > ~/.netrc <<EOF
+          machine api.heroku.com
+            login $HEROKU_EMAIL
+            password $HEROKU_API_KEY
+          machine git.heroku.com
+            login $HEROKU_EMAIL
+            password $HEROKU_API_KEY
+        EOF
+      env:
         HEROKU_API_KEY: ${{ secrets.heroku_api_key }}
-      run: heroku container:login && heroku git:remote -a whateverb0t && git push heroku HEAD
+        HEROKU_EMAIL: "bbeenn1227@gmail.com"
