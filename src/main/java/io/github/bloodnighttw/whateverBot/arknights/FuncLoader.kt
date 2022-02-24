@@ -3,7 +3,6 @@ package io.github.bloodnighttw.whateverBot.arknights
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.type.TypeFactory
-import io.github.bloodnighttw.whateverBot.commandRegister
 import io.github.bloodnighttw.whateverBot.utils.arknights.CharacterInfo
 import io.github.bloodnighttw.whateverBot.utils.arknights.Position
 import io.github.bloodnighttw.whateverBot.utils.arknights.Profession
@@ -18,14 +17,12 @@ val recruitCharacterMap:MutableMap<String,MutableSet<CharacterInfo>> = mutableMa
 
 
 fun MutableMap<String,MutableSet<CharacterInfo>>.add(key:String,characterInfo:CharacterInfo) =
-	recruitCharacterMap[key]?.let {
-		it.add(characterInfo)
-} ?: run{
+	recruitCharacterMap[key]?.add(characterInfo) ?: run{
 	recruitCharacterMap.put(key, mutableSetOf(characterInfo))
 }
 
 fun loadArknights(bot:JDA, register: CommandRegister?){
-	commandRegister?.registerCommand(Arknights)
+	register?.registerCommand(Arknights)
 
 	loadCharacterMap()
 	loadRecruitCharacterMap()
@@ -79,7 +76,7 @@ fun loadRecruitCharacterMap(){
 	val pro = "資深幹員"
 	val proMax = "高級資深幹員"
 
-	for( (index,agents) in list.withIndex() ){
+	for( agents in list){
 
 		for ( i in agents){
 			val characterInfo = characterMap[i]!!
