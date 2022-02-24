@@ -2,16 +2,17 @@ package io.github.bloodnighttw.whateverBot.voiceChannelCreator
 
 import io.github.bloodnighttw.whateverBot.utils.command.ICommand
 import net.dv8tion.jda.api.Permission
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
-import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
+import net.dv8tion.jda.api.interactions.commands.build.Commands
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object SetVC : ICommand {
-	override val command: CommandData
-		get() = CommandData("setvc", "setup voice channel")
+	override val command: SlashCommandData
+		get() = Commands.slash("setvc", "setup voice channel")
 
-	override fun commandHandler(event: SlashCommandEvent) {
+	override fun commandHandler(event: SlashCommandInteractionEvent) {
 
 		if (!event.member!!.hasPermission(Permission.ADMINISTRATOR)) {
 			event.hook.sendMessage("You don't have permission").queue()
@@ -32,10 +33,10 @@ object SetVC : ICommand {
 }
 
 object DeleteALLVoiceChannel : ICommand {
-	override val command: CommandData
-		get() = CommandData("removeallvc", "remove all voice channel")
+	override val command: SlashCommandData
+		get() = Commands.slash("removeallvc", "remove all voice channel")
 
-	override fun commandHandler(event: SlashCommandEvent) {
+	override fun commandHandler(event: SlashCommandInteractionEvent) {
 
 		if (!event.member!!.hasPermission(Permission.ADMINISTRATOR)) {
 			event.hook.sendMessage("You are not admin of this server").queue()
