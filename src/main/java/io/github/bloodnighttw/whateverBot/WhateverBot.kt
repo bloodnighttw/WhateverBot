@@ -10,30 +10,18 @@ import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister
 import io.github.bloodnighttw.whateverBot.voiceChannelCreator.voiceChannelCreatorLoad
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
-import net.dv8tion.jda.api.events.GenericEvent
-import net.dv8tion.jda.api.events.ReadyEvent
-import net.dv8tion.jda.api.hooks.EventListener
 import org.jetbrains.exposed.sql.Database
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
 
-var commandRegister: CommandRegister? = null
-
-object Ready : EventListener {
-	override fun onEvent(event: GenericEvent) {
-		if (event is ReadyEvent) {
-			load(event.jda)
-		}
-	}
-}
 
 fun load(bot: JDA) {
-	commandRegister = CommandRegister(bot)
+	val commandRegister = CommandRegister(bot)
 	bot.addEventListener(MessageHandler())
 	voiceChannelCreatorLoad(bot, commandRegister)
 	loadMusicBotFunc(bot, commandRegister)
 	loadArknights(bot, commandRegister)
-	commandRegister!!.addToAllServer()
+	commandRegister.addToAllServer()
 }
 
 fun main(args: Array<String>) {
@@ -90,9 +78,9 @@ fun main(args: Array<String>) {
 	}
 
 	System.getenv("TOKEN")?.let {
-		JDABuilder.createDefault(it)
-				.addEventListeners(Ready)
-				.build()
+		val bot = JDABuilder.createDefault(it)
+				.build().awaitReady()
+		load(bot)
 	} ?: run {
 		val s = """
             ██████  ██      ███████     ███████ ███    ██ ████████ ███████ ██████      ██    ██  ██████  ██    ██ ██████      
@@ -131,6 +119,7 @@ fun main(args: Array<String>) {
 		println()
 		println(s)
 	}
+
 
 
 }

@@ -44,7 +44,7 @@ class CommandRegister(private val bot: JDA) {
 			logger.debug("Add command to server: " + guild.name)
 			guild.updateCommands()
 					.addCommands(commandDataLocalList)
-					.addCommands(commandDataGlobalList)
+					//.addCommands(commandDataGlobalList)
 					.queue()
 		}
 	}
