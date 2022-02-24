@@ -25,4 +25,4 @@ jobs:
       env:
         HEROKU_APP_NAME: "whateverb0t"
     - name: Push to Heroku
-      run: git fetch heroku && git push -f
+      run: git push heroku HEAD:master
