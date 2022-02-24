@@ -24,3 +24,5 @@ jobs:
       run: heroku git:remote --app $HEROKU_APP_NAME
       env:
         HEROKU_APP_NAME: "whateverb0t"
+    - name: Push to Heroku
+      run: git push heroku master
