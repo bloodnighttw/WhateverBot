@@ -10,4 +10,4 @@ jobs:
     - name: Login to Heroku Container registry
       env: 
         HEROKU_API_KEY: ${{ secrets.heroku_api_key }}
-      run: heroku container:login && heroku git:remote -a whateverb0t && git push heroku master
+      run: heroku container:login && heroku git:remote -a whateverb0t && git push heroku HEAD
