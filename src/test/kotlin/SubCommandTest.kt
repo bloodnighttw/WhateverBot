@@ -1,4 +1,3 @@
-import io.github.bloodnighttw.whateverBot.commandRegister
 import io.github.bloodnighttw.whateverBot.utils.command.CommandRegister
 import io.github.bloodnighttw.whateverBot.utils.command.ICommand
 import io.github.bloodnighttw.whateverBot.utils.command.ISubCommand
@@ -44,9 +43,9 @@ object Ready : EventListener {
 }
 
 fun load(bot: JDA) {
-	commandRegister = CommandRegister(bot)
-	commandRegister!!.registerCommand(Command)
-	commandRegister!!.addToAllServer()
+	val commandRegister = CommandRegister(bot)
+	commandRegister.registerCommand(Command)
+	commandRegister.addToAllServer()
 }
 
 
