@@ -5,9 +5,10 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.events.GenericEvent
 import net.dv8tion.jda.api.events.ReadyEvent
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.EventListener
-import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import net.dv8tion.jda.api.interactions.commands.build.Commands
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData
 
 object Sub : ISubCommand {
@@ -15,7 +16,7 @@ object Sub : ISubCommand {
 	override val subCommand: SubcommandData
 		get() = SubcommandData("test", "nothing")
 
-	override fun subCommandHandler(slashCommandEvent: SlashCommandEvent) {
+	override fun subCommandHandler(slashCommandEvent: SlashCommandInteractionEvent) {
 		slashCommandEvent.hook.sendMessage("hi").queue()
 	}
 
@@ -26,8 +27,8 @@ object Command : ICommand {
 	override val alias: Array<String>
 		get() = arrayOf("ac")
 
-	override val command: CommandData
-		get() = CommandData("t", "nothn")
+	override val command: SlashCommandData
+		get() = Commands.slash("t", "nothn")
 	override val subCommandMap: Map<String, ISubCommand>
 		get() = mapOf(
 			"test" to Sub

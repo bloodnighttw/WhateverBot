@@ -1,13 +1,13 @@
 package io.github.bloodnighttw.whateverBot.utils.command
 
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
-import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 
 interface ICommand {
 	val alias: Array<String>
 		get() = arrayOf()
-	val command: CommandData
-	fun commandHandler(event: SlashCommandEvent) {
+	val command: SlashCommandData
+	fun commandHandler(event: SlashCommandInteractionEvent) {
 		println(event.subcommandName)
 		subCommandMap[event.subcommandName]?.subCommandHandler(event)
 	}

@@ -3,6 +3,7 @@ package io.github.bloodnighttw.whateverBot.utils.command
 
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import net.dv8tion.jda.api.interactions.commands.build.Commands
 import org.slf4j.LoggerFactory
 
 class CommandRegister(private val bot: JDA) {
@@ -20,7 +21,7 @@ class CommandRegister(private val bot: JDA) {
 		tempDataList.add(tempCommandData)
 		for (alias in iCommand.alias) {
 			tempCommandData =
-				CommandData(alias, tempCommandData.description).addSubcommands(tempCommandData.subcommands)
+				Commands.slash(alias, tempCommandData.description).addSubcommands(tempCommandData.subcommands)
 			tempDataList.add(tempCommandData)
 			logger.debug("add ${if(tempDataList === commandDataGlobalList) "GLOBAL" else "LOCAL"} command for ${iCommand.command.name}")
 		}

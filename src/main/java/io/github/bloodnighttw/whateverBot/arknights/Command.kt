@@ -4,15 +4,16 @@ import io.github.bloodnighttw.whateverBot.utils.arknights.CharacterInfo
 import io.github.bloodnighttw.whateverBot.utils.command.ICommand
 import io.github.bloodnighttw.whateverBot.utils.command.ISubCommand
 import io.github.bloodnighttw.whateverBot.utils.extensions.isAllNull
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
-import net.dv8tion.jda.api.interactions.commands.build.CommandData
+import net.dv8tion.jda.api.interactions.commands.build.Commands
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData
 import java.util.concurrent.TimeUnit
 
 object Arknights:ICommand{
-	override val command: CommandData
-		get() = CommandData("arknights","arknights related command")
+	override val command: SlashCommandData
+		get() = Commands.slash("arknights","arknights related command")
 
 	override val subCommandMap: Map<String, ISubCommand>
 		get() = mapOf(
@@ -30,7 +31,7 @@ object Recruit:ISubCommand{
 			.addOption(OptionType.ROLE,"slot5","slot 5")
 
 
-	override fun subCommandHandler(slashCommandEvent: SlashCommandEvent) {
+	override fun subCommandHandler(slashCommandEvent: SlashCommandInteractionEvent) {
 
 		slashCommandEvent.hook.sendMessage("正在計算中").queue()
 
