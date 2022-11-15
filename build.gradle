@@ -18,34 +18,13 @@ repositories {
 
 dependencies {
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation("net.dv8tion:JDA:5.0.0-alpha.22")
+    implementation('ch.qos.logback:logback-classic:1.4.4')
+    implementation('org.xerial:sqlite-jdbc:3.39.3.0')
+    implementation('club.minnced:discord-webhooks:0.8.2')
 
-
-    implementation("net.dv8tion:JDA:5.0.0-alpha.8")
-    implementation("ch.qos.logback:logback-classic:1.2.10")
-    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
-    implementation("club.minnced:discord-webhooks:0.7.5")
-
-    implementation("org.jetbrains.exposed:exposed-core:0.37.3")
-    implementation("org.jetbrains.exposed:exposed-dao:0.37.3")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.37.3")
-
-    implementation("org.xerial:sqlite-jdbc:3.36.0.3")
-    implementation('org.postgresql:postgresql:42.3.3')
-
-    implementation('com.sedmelluq:lavaplayer:1.3.78')
-
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
-
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1'
-
-}
-
-task submodulesUpdate(type:Exec) {
-    description 'Updates (and inits) git submodules'
-    commandLine 'git', 'submodule', 'update', '--init', '--recursive'
-    group 'Build Setup'
+    implementation('org.xerial:sqlite-jdbc:3.39.3.0')
+    implementation("org.yaml:snakeyaml:1.33")
 }
 
 task stage(dependsOn: ['build','shadowJar'])

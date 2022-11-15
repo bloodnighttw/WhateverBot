@@ -1,26 +1,24 @@
-# WhateverBot
+# This is WhateverBot v2
 [![CodeFactor](https://www.codefactor.io/repository/github/bloodnighttw/whateverbot/badge)](https://www.codefactor.io/repository/github/bloodnighttw/whateverbot)
 
 A Discord Bot Write for my discord server,feel free to use.
 
-### Setup
+### V2 is developing ......
+Due to heroku is not free anymore, I want to rewrite the bot , to make this bot more
 
-Before you run this program , you need to setup environment variable.
+- [ ] Lightweight
+- [ ] Readable
+- [ ] Easy to configure
 
-Please set ``TOKEN`` to your bot token,set ``CHANNEL_ID`` to the channel id which you want to use code auto reformat and
-resend (if you don't set this value,this function won't enable.) , and set ``VC_ID`` to the voice create channel(if you
-don't set this value,this function won't enable.).
+The new code will develop at branch ``v2`` , and branch ``main`` will be merged when ``v2`` is ready.
 
-### Todo
+# What to do by first place.
+- [x] Remove Unused Library and Code.
+- [ ] Rewrite Voice Auto Crate Function.
+- [ ] Make Code More Readable.
+- [ ] Easier To Develop.
 
-- [x] Auto format code and resend when detecting the programing language.
-- [x] Auto Create Voice Channel.
-- [ ] Database (Plan to use Kotlin & Exposed franework).
-- [ ] Discord Music Player.
-- [ ] Osu-related function , such as last play , skin preview ,beatmap info , osr to mp4 (use danser-go as backend) , etc.
-
-### Consider Todo
-
-- [ ] Web Control Panel (Use Ktor as backend)
-
-
+# What's Major Change
+- Use yaml file to configure, instead of environment variable.
+- Remove Music support due to limit functionality (I want to use lavalink as backend if I have time to implement), and arknights support due to data not up-to-date.
+- Use Hibernate instead of Exposed Framework (Need to implement).
